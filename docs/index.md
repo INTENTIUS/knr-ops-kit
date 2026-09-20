@@ -43,7 +43,7 @@ Follow the knr-ops golden rules: edit YAML in Git, never mutate a cluster, and
 run `mise run validate` before pushing. A chant gate stops a run with exit code 3.
 That is a pending approval and you must leave it for a person.
 
-Read https://intentius.github.io/knr-ops-kit-site/leaving/ before assuming the kit is required for anything.
+Read https://intentius.io/knr-ops-kit-site/leaving/ before assuming the kit is required for anything.
 ```
 
 ## Start here

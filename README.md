@@ -6,7 +6,7 @@
 
 Flux never reads anything the kit writes, and the kit never applies anything to your clusters. `knr-bootstrap` and `bootstrap.toml` stay exactly as they are.
 
-[The documentation site](https://intentius.github.io/knr-ops-kit-site/) is published on GitHub Pages and asks for a password.
+[The documentation site](https://intentius.io/knr-ops-kit-site/) is published on GitHub Pages and asks for a password.
 
 ## Read this first
 

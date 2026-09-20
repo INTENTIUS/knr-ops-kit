@@ -1,6 +1,6 @@
 site_name: knr-ops-kit
 site_description: Checks, queries and recorded lifecycle runs for a knr-ops estate. Drop it any time and your knr-ops still works.
-site_url: https://intentius.github.io/knr-ops-kit-site/
+site_url: https://intentius.io/knr-ops-kit-site/
 # No repo_url while the source repo is private: the header link would 404 for readers.
 
 theme:
