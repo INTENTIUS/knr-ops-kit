@@ -1,0 +1,21 @@
+knr-ops-kit
+Copyright 2026 INTENTIUS
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This project is built to work beside knr-ops.
+
+  knr-ops: kubernetes-native resource operations
+  https://github.com/polarsquad/knr-ops
+  Copyright 2026 knr-ops contributors
+  Licensed under the Apache License, Version 2.0
+
+knr-ops-kit contains no source code copied from knr-ops. Its documentation
+describes the knr-ops repository layout, its lifecycle steps, its golden rules
+and its "add a workload cluster" procedure, and it quotes short passages from
+the knr-ops README, AGENTS.md and docs/extending.md. The pattern itself, the
+layout conventions and those procedures are the work of the knr-ops
+contributors.
+
+knr-ops-kit is an independent project. It is not affiliated with or endorsed
+by Polar Squad or the knr-ops contributors.

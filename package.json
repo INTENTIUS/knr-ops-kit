@@ -1,0 +1,12 @@
+{
+  "name": "knr-ops-kit-docs",
+  "private": true,
+  "type": "module",
+  "description": "Docs tooling only. The kit itself is not implemented yet; see ROADMAP.md.",
+  "scripts": {
+    "lint-docs": "node scripts/lint-docs.mjs"
+  },
+  "devDependencies": {
+    "sentences": "0.5.1"
+  }
+}

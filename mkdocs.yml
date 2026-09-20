@@ -1,0 +1,68 @@
+site_name: knr-ops-kit
+site_description: Checks, queries and recorded lifecycle runs for a knr-ops estate. Drop it any time and your knr-ops still works.
+site_url: https://intentius.github.io/knr-ops-kit-site/
+# No repo_url while the source repo is private: the header link would 404 for readers.
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.top
+    - content.code.copy
+
+plugins:
+  - search
+  # One shared password over every page, set from the DOCS_PASSWORD environment
+  # variable. With the variable unset or empty the site builds unencrypted, which
+  # is what `just docs-serve` does locally. See README.md, "The password".
+  - encryptcontent:
+      global_password: !ENV [DOCS_PASSWORD, ""]
+      # The plugin warns below 100 bits of entropy, and --strict turns the warning
+      # into a failure. The shared password is short on purpose, so lower the bar.
+      threshold_warning_min_entropy: 40
+      remember_password: true
+      title_prefix: ""
+      summary: This page is protected.
+      search_index: encrypted
+      encrypted_something:
+        mkdocs-encrypted-toc: [nav, class]
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Overview: index.md
+  - Add it to your fork: getting-started.md
+  - Check the whole estate: checks.md
+  - Ask the estate a question: search.md
+  - Read a live cluster: clusters.md
+  - Bootstrap, pivot and teardown: lifecycle.md
+  - Watch for drift: watch.md
+  - Typed authoring: typed.md
+  - The steward and the review agent: agents.md
+  - CI pipelines: ci.md
+  - Dropping the kit: leaving.md
+  - Why it works this way: design.md
+  - What the kit is built on: underneath.md
