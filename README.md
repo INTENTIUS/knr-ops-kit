@@ -38,10 +38,11 @@ just check         # the strict build CI runs, plus the prose linter
 
 This repository is private, and the organisation's plan serves GitHub Pages from public repositories only. The workflow therefore builds the site here and pushes the built output to a second, public repository named `knr-ops-kit-site`, which Pages serves. The markdown source stays private.
 
-The built pages are encrypted with one shared password, using [mkdocs-encryptcontent-plugin](https://github.com/unverbuggt/mkdocs-encryptcontent-plugin). Two repository secrets drive this. `DOCS_PASSWORD` is the password. `SITE_DEPLOY_KEY` is the private half of a deploy key that has write access to the site repository.
+The built pages are encrypted with one shared password, using [mkdocs-encryptcontent-plugin](https://github.com/unverbuggt/mkdocs-encryptcontent-plugin). Two repository secrets drive this. `DOCS_PASSWORD` is the password. `SITE_PUSH_TOKEN` is a fine-grained personal access token with `contents: write` on `knr-ops-kit-site` and no other access. The organisation disables deploy keys, which is why a token is used. Without the token the workflow still builds and verifies the site, and `just publish` pushes it from your machine with your own credentials.
 
 ```sh
 gh secret set DOCS_PASSWORD
+gh secret set SITE_PUSH_TOKEN
 ```
 
 The workflow refuses to publish without that secret, so the site cannot go out in the clear by accident. Locally the variable is unset, and the site builds unencrypted.
