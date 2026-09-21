@@ -22,13 +22,3 @@ lint-docs strictness="2" limit="8":
     node scripts/lint-docs.mjs {{strictness}} {{limit}}
 
 check: docs-build lint-docs
-
-# build the encrypted site and push it to INTENTIUS/knr-ops-kit-site with your own git credentials
-publish:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    : "${DOCS_PASSWORD:?set DOCS_PASSWORD to the shared site password}"
-    out="$(mktemp -d)"
-    .venv/bin/mkdocs build --strict -d "$out"
-    scripts/publish-site.sh "$out" "https://github.com/INTENTIUS/knr-ops-kit-site.git" "$(git rev-parse --short HEAD)"
-    rm -rf "$out" encryptcontent.cache

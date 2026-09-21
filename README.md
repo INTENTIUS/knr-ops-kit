@@ -6,7 +6,7 @@
 
 Flux never reads anything the kit writes, and the kit never applies anything to your clusters. `knr-bootstrap` and `bootstrap.toml` stay exactly as they are.
 
-[The documentation site](https://intentius.io/knr-ops-kit-site/) is published on GitHub Pages and asks for a password.
+[The documentation site](https://intentius.io/knr-ops-kit/) is published on GitHub Pages and asks for a password.
 
 ## Read this first
 
@@ -21,7 +21,7 @@ Flux never reads anything the kit writes, and the kit never applies anything to 
 | `docs/` | The published site, written for someone who runs knr-ops |
 | `ROADMAP.md` | Roadmap items and open questions, each tied to the docs page it affects |
 | `research/` | The study behind the design, with the evidence for each claim |
-| `mkdocs.yml`, `.github/workflows/docs.yml` | The site build, and the push of the encrypted output to the public site repo |
+| `mkdocs.yml`, `.github/workflows/docs.yml` | The site build and the GitHub Pages deploy |
 | `NOTICE` | Credit to knr-ops |
 
 ## Working on the docs
@@ -36,20 +36,17 @@ just check         # the strict build CI runs, plus the prose linter
 
 ## The password
 
-This repository is private, and the organisation's plan serves GitHub Pages from public repositories only. The workflow therefore builds the site here and pushes the built output to a second, public repository named `knr-ops-kit-site`, which Pages serves. The markdown source stays private.
-
-The built pages are encrypted with one shared password, using [mkdocs-encryptcontent-plugin](https://github.com/unverbuggt/mkdocs-encryptcontent-plugin). Two repository secrets drive this. `DOCS_PASSWORD` is the password. `SITE_PUSH_TOKEN` is a fine-grained personal access token with `contents: write` on `knr-ops-kit-site` and no other access. The organisation disables deploy keys, which is why a token is used. Without the token the workflow still builds and verifies the site, and `just publish` pushes it from your machine with your own credentials.
+The published site asks for one shared password. [mkdocs-encryptcontent-plugin](https://github.com/unverbuggt/mkdocs-encryptcontent-plugin) encrypts each page at build time, and the reader's browser decrypts it. The password is the `DOCS_PASSWORD` repository secret.
 
 ```sh
 gh secret set DOCS_PASSWORD
-gh secret set SITE_PUSH_TOKEN
 ```
 
-The workflow refuses to publish without that secret, so the site cannot go out in the clear by accident. Locally the variable is unset, and the site builds unencrypted.
+The workflow refuses to publish without that secret. Locally the variable is unset, and the site builds unencrypted.
 
-The plugin warns when a password has less than 100 bits of entropy, and `--strict` turns that warning into a failed build. `mkdocs.yml` lowers the bar to 40 bits with `threshold_warning_min_entropy`, because the shared password is short on purpose. Raise it again if you switch to a long passphrase.
+The password only keeps casual visitors off the rendered site. This repository is public, so every page is readable as markdown under `docs/`. Remove the `encryptcontent` block from `mkdocs.yml` when the gate is no longer wanted.
 
-Know what this protects. Each page body and the search index are encrypted at build time and decrypted in the reader's browser. The ciphertext is public, and so are the page titles in the navigation and the one-line site description. A short password only keeps out casual readers, since anyone with the ciphertext can try guesses offline. A long passphrase is safe enough for sharing a draft with a few people. Neither is access control. If this repository ever becomes public, the markdown under `docs/` is readable no matter what the site does. At that point drop the plugin, publish Pages from this repository directly as m80 does, and delete `knr-ops-kit-site`.
+The plugin warns when a password has less than 100 bits of entropy, and `--strict` turns that warning into a failed build. `mkdocs.yml` lowers the bar to 40 bits with `threshold_warning_min_entropy`, because the shared password is short on purpose.
 
 ## License
 

@@ -1,10 +1,5 @@
 name: Docs
 
-# This repo is private, and the org's plan serves Pages from public repos only.
-# So the workflow builds the encrypted site here and pushes the built output,
-# and nothing else, to the public repo INTENTIUS/knr-ops-kit-site. Pages serves
-# that repo's main branch. The markdown source never leaves this repo.
-
 on:
   push:
     branches: [main]
@@ -17,14 +12,17 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
+# Allow one concurrent deployment.
 concurrency:
-  group: docs-publish
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  publish:
-    name: Build (strict, encrypted) and publish
+  build:
+    name: Build site (strict)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -36,8 +34,7 @@ jobs:
       - name: Install mkdocs-material and the encryption plugin
         run: pip install -r requirements-docs.txt
 
-      # The site repo is public. An empty password would build plain pages, so
-      # stop here instead of publishing them.
+      # An empty password would publish plain pages, so stop here instead.
       - name: Require the docs password
         env:
           DOCS_PASSWORD: ${{ secrets.DOCS_PASSWORD }}
@@ -52,24 +49,19 @@ jobs:
           DOCS_PASSWORD: ${{ secrets.DOCS_PASSWORD }}
         run: mkdocs build --strict
 
-      - name: Confirm the build is encrypted
-        run: |
-          if grep -rl -e "knr-bootstrap" site --include="*.html" --include="*.json"; then
-            echo "::error::Found unencrypted page content in the build."
-            exit 1
-          fi
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
 
-      # Deploy keys are disabled for the organisation, so the push uses a
-      # fine-grained token with contents:write on knr-ops-kit-site and nothing else.
-      # Without the secret the job still builds and verifies, and says so.
-      - name: Push the built site to knr-ops-kit-site
-        env:
-          SITE_PUSH_TOKEN: ${{ secrets.SITE_PUSH_TOKEN }}
-        run: |
-          if [ -z "$SITE_PUSH_TOKEN" ]; then
-            echo "::warning::SITE_PUSH_TOKEN is not set. The site was built and checked, and was not published. Run 'just publish' locally, or add the secret."
-            exit 0
-          fi
-          scripts/publish-site.sh site \
-            "https://x-access-token:${SITE_PUSH_TOKEN}@github.com/INTENTIUS/knr-ops-kit-site.git" \
-            "${GITHUB_SHA::7}"
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
