@@ -20,6 +20,7 @@ Nothing in `kit/` exists yet. This repo holds documentation and research only.
 | Typed authoring | `typed.md` | Most kinds, `chant import --kustomize`, `chant build` | R2, R14, R15 |
 | Agents | `agents.md` | `ConciergeStack`, the MCP server, `chant run --on fountain` | R16, R17 |
 | CI | `ci.md` | `generateOpsPipeline`, finding modes, `WorkflowAuditOp`, `BehaviourOp` | R18, R19 |
+| Adoption levels | `adoption.md` | The level model is a description of the rows above | R11, R12, R14 |
 | Dropping the kit | `leaving.md` | True by construction once the kit exists | R20 |
 
 ## Roadmap items
@@ -127,7 +128,7 @@ Nothing in `kit/` exists yet. This repo holds documentation and research only.
 
 | | |
 |---|---|
-| Docs that depend on it | `lifecycle.md`, `watch.md`. |
+| Docs that depend on it | `lifecycle.md`, `watch.md`, and `adoption.md`, which says `KIT_LIFECYCLE=typed` in `kit/.env` switches the Ops from script calls to typed steps. |
 | Today | Not written. The sample output in `lifecycle.md` is illustrative. |
 | To do | Write `bootstrap`, `pivot`, `teardown`, `watch` and `converge`. A first version can call the existing scripts per phase, as `kubemicrovm-ops` does. |
 | Where | the kit. |

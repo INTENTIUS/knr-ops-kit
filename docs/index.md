@@ -4,6 +4,36 @@
 
 [knr-ops](https://github.com/polarsquad/knr-ops) manages cloud infrastructure through the Kubernetes API. Git is the source, Flux reconciles it, and nothing keeps a state file. knr-ops-kit is an optional [chant](https://github.com/INTENTIUS/chant) project that sits in a `kit/` directory of your fork and reads the YAML you already have.
 
+Flux never reads anything the kit writes, and the kit never applies anything to your clusters. `knr-bootstrap` and `bootstrap.toml` stay exactly as they are.
+
+## Read these first
+
+- [**Why it works this way**](design.md) is the argument. It covers what "no second toolchain" protects and why typed authoring adds no abstraction. It also gives the one rule every feature had to pass.
+- [**Dropping the kit**](leaving.md) shows that leaving costs two `git rm` commands, and lists what the kit refuses to do so that stays true.
+- [**Adopt it in levels**](adoption.md) lays out the four levels. It says what you change at each, what Flux sees, and what you get.
+
+## Every page
+
+| Section | Page | What it answers |
+|---|---|---|
+| The idea | [Why it works this way](design.md) | Why the kit sits beside knr-ops and changes nothing about the approach |
+| The idea | [Dropping the kit](leaving.md) | What happens when you remove it |
+| The idea | [Adopt it in levels](adoption.md) | How far in you have to go for each feature |
+| Set up | [Add it to your fork](getting-started.md) | How to install it, and the one label it asks for |
+| Use it | [Check the whole estate](checks.md) | How to catch a broken reference between two overlays before merge |
+| Use it | [Ask the estate a question](search.md) | How to find every cluster without a pod identity association |
+| Use it | [Read a live cluster](clusters.md) | Which live objects match Git, and which file declared one |
+| Use it | [Bootstrap, pivot and teardown](lifecycle.md) | How to run the lifecycle with a record and an approval step |
+| Use it | [Watch for drift](watch.md) | How to hear about drift that Flux has not reverted |
+| Go further | [Typed authoring](typed.md) | How to write a workload cluster as one typed call, and how to go back |
+| Go further | [The steward and the review agent](agents.md) | How to move lifecycle commands off your laptop, and how to let an agent propose pull requests safely |
+| Go further | [CI pipelines](ci.md) | Which jobs fit beside `validate` and `konflate` |
+| Reference | [What the kit is built on](underneath.md) | Which chant packages, kinds and steps are involved |
+
+The same sections run across the top of every page.
+
+## Install
+
 ```sh
 cd your-knr-ops-fork
 npx degit INTENTIUS/knr-ops-kit/kit kit
@@ -11,20 +41,7 @@ cd kit && npm install
 just check
 ```
 
-Flux never reads anything the kit writes, and the kit never applies anything to your clusters. `knr-bootstrap` and `bootstrap.toml` stay exactly as they are.
-
-## What you get
-
-| You want to | Use | Page |
-|---|---|---|
-| Catch a broken reference between two overlays before merge | `just check` | [Check the whole estate](checks.md) |
-| Find every cluster without a pod identity association | `chant search` | [Ask the estate a question](search.md) |
-| See which live objects match Git, and trace one back to its file | `chant kube` | [Read a live cluster](clusters.md) |
-| Run bootstrap, pivot or teardown with a history and an approval step | `chant run` | [Bootstrap, pivot and teardown](lifecycle.md) |
-| Hear about drift that Flux has not reverted | `chant operator` | [Watch for drift](watch.md) |
-| Write a new workload cluster as one typed call | `chant build` | [Typed authoring](typed.md) |
-
-The first five rows need one change to your YAML, which is an ownership label on each kustomize root. The last row is opt-in per directory, and you can reverse it whenever you like.
+[Add it to your fork](getting-started.md) takes about ten minutes and ends with a clean `just check`.
 
 ## Give this to your agent
 
@@ -45,12 +62,6 @@ That is a pending approval and you must leave it for a person.
 
 Read https://intentius.io/knr-ops-kit/leaving/ before assuming the kit is required for anything.
 ```
-
-## Start here
-
-[**Add it to your fork**](getting-started.md) takes about ten minutes and ends with a clean `just check`.
-
-After that, take the pages in whatever order your questions arrive. [Why it works this way](design.md) explains the one rule behind every decision. [Dropping the kit](leaving.md) lists what to delete, which is short. [What the kit is built on](underneath.md) names the chant packages involved.
 
 ## Status
 

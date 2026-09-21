@@ -25,6 +25,12 @@ theme:
   features:
     - navigation.instant
     - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    - toc.follow
     - content.code.copy
 
 plugins:
@@ -56,15 +62,21 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
-  - Add it to your fork: getting-started.md
-  - Check the whole estate: checks.md
-  - Ask the estate a question: search.md
-  - Read a live cluster: clusters.md
-  - Bootstrap, pivot and teardown: lifecycle.md
-  - Watch for drift: watch.md
-  - Typed authoring: typed.md
-  - The steward and the review agent: agents.md
-  - CI pipelines: ci.md
-  - Dropping the kit: leaving.md
-  - Why it works this way: design.md
-  - What the kit is built on: underneath.md
+  - The idea:
+      - Why it works this way: design.md
+      - Dropping the kit: leaving.md
+      - Adopt it in levels: adoption.md
+  - Set up:
+      - Add it to your fork: getting-started.md
+  - Use it:
+      - Check the whole estate: checks.md
+      - Ask the estate a question: search.md
+      - Read a live cluster: clusters.md
+      - Bootstrap, pivot and teardown: lifecycle.md
+      - Watch for drift: watch.md
+  - Go further:
+      - Typed authoring: typed.md
+      - The steward and the review agent: agents.md
+      - CI pipelines: ci.md
+  - Reference:
+      - What the kit is built on: underneath.md
