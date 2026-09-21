@@ -30,6 +30,7 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.footer
+    - navigation.path
     - toc.follow
     - content.code.copy
 
@@ -46,9 +47,15 @@ plugins:
       remember_password: true
       title_prefix: ""
       summary: This page is protected.
+      encryption_info_message: Enter the shared password to read this page.
+      password_button: true
+      password_button_text: Open
       search_index: encrypted
       encrypted_something:
         mkdocs-encrypted-toc: [nav, class]
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
@@ -61,14 +68,13 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Overview: index.md
-  - The idea:
+  - Overview:
+      - Start here: index.md
       - Why it works this way: design.md
       - Dropping the kit: leaving.md
       - Adopt it in levels: adoption.md
-  - Set up:
-      - Add it to your fork: getting-started.md
   - Use it:
+      - Add it to your fork: getting-started.md
       - Check the whole estate: checks.md
       - Ask the estate a question: search.md
       - Read a live cluster: clusters.md
@@ -78,5 +84,4 @@ nav:
       - Typed authoring: typed.md
       - The steward and the review agent: agents.md
       - CI pipelines: ci.md
-  - Reference:
       - What the kit is built on: underneath.md

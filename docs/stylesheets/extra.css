@@ -1,0 +1,11 @@
+/* Make it obvious which top section you are in. */
+.md-tabs__item--active .md-tabs__link {
+  font-weight: 700;
+  opacity: 1;
+  box-shadow: inset 0 -2px 0 currentColor;
+}
+
+/* Make the current page obvious in the left sidebar. */
+.md-nav__link--active {
+  font-weight: 700;
+}

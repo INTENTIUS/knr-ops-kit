@@ -16,10 +16,10 @@ Flux never reads anything the kit writes, and the kit never applies anything to 
 
 | Section | Page | What it answers |
 |---|---|---|
-| The idea | [Why it works this way](design.md) | Why the kit sits beside knr-ops and changes nothing about the approach |
-| The idea | [Dropping the kit](leaving.md) | What happens when you remove it |
-| The idea | [Adopt it in levels](adoption.md) | How far in you have to go for each feature |
-| Set up | [Add it to your fork](getting-started.md) | How to install it, and the one label it asks for |
+| Overview | [Why it works this way](design.md) | Why the kit sits beside knr-ops and changes nothing about the approach |
+| Overview | [Dropping the kit](leaving.md) | What happens when you remove it |
+| Overview | [Adopt it in levels](adoption.md) | How far in you have to go for each feature |
+| Use it | [Add it to your fork](getting-started.md) | How to install it, and the one label it asks for |
 | Use it | [Check the whole estate](checks.md) | How to catch a broken reference between two overlays before merge |
 | Use it | [Ask the estate a question](search.md) | How to find every cluster without a pod identity association |
 | Use it | [Read a live cluster](clusters.md) | Which live objects match Git, and which file declared one |
@@ -28,9 +28,9 @@ Flux never reads anything the kit writes, and the kit never applies anything to 
 | Go further | [Typed authoring](typed.md) | How to write a workload cluster as one typed call, and how to go back |
 | Go further | [The steward and the review agent](agents.md) | How to move lifecycle commands off your laptop, and how to let an agent propose pull requests safely |
 | Go further | [CI pipelines](ci.md) | Which jobs fit beside `validate` and `konflate` |
-| Reference | [What the kit is built on](underneath.md) | Which chant packages, kinds and steps are involved |
+| Go further | [What the kit is built on](underneath.md) | Which chant packages, kinds and steps are involved |
 
-The same sections run across the top of every page.
+You are in the Overview section now. The three sections run across the top of every page, and the left sidebar lists the pages in the current one.
 
 ## Install
 
