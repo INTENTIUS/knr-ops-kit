@@ -8,7 +8,7 @@ chant is a compiler. It takes TypeScript declarations and writes the target plat
 
 | Ring | Layer | What it does |
 |---|---|---|
-| 0 | Synthesis with `chant build` | Typed TypeScript goes in, and spec-native files come out |
+| 0 | Synthesis with `chant build` | TypeScript goes in, and spec-native files come out |
 | 1 | Ops | Named, phased workflows over those files |
 | 2 | Lifecycle dial | Each environment chooses to observe, reconcile or apply |
 | 3 | Components | A release composed from a bounded set of verbs |
